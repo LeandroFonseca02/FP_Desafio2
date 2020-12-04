@@ -2,7 +2,7 @@
 Ismat - Engenheiria Informática 1º Ano
 Fundamentos de Programação - Prof. Fracisco Pereira
 Leandro Fonseca
-30/11/2020 - 18:38
+04/12/2020 - 13:27
 Resumo: Programa com menus e opções com arrays
 Inputs:
 Outputs:
@@ -12,12 +12,16 @@ Outputs:
 #include <stdlib.h>
 #include <ctype.h>
 
-void resetArrays(int intCounter, int intArray2[], float fltArray3[])
+#define ARRAY_DIMENSION 10
+
+void resetArrays(int intArray2[ARRAY_DIMENSION], float fltArray3[ARRAY_DIMENSION])
 {
-    for (intCounter = 0; intCounter < 10; intCounter++)
+    int intContador = 0;
+
+    for (intContador = 0; intContador < 10; intContador++)
     {
-        intArray2[intCounter] = 0;
-        fltArray3[intCounter] = 0;
+        intArray2[intContador] = 0;
+        fltArray3[intContador] = 0;
     }
 }
 void printMenu()
@@ -35,9 +39,71 @@ void printMenu()
     printf("Escolha a opçao do menu: ");
 }
 
+int checkExit(int intArrayLocal[ARRAY_DIMENSION], float fltArrayLocal[ARRAY_DIMENSION])
+{
+    int intResult = 1;
+    char chrOptionConfirm, chrMenuOption;
+
+    printf("\nDeseja continuar na Opçao? (s ou n): ");
+    scanf(" %c",&chrOptionConfirm);
+    chrOptionConfirm = tolower(chrOptionConfirm);
+    if(chrOptionConfirm == 's')
+    {
+        printf("Continuar na opçao\n");
+        resetArrays(intArrayLocal,fltArrayLocal);
+    }else if (chrOptionConfirm == 'n')
+    {
+        printf("Obrigado pela sua escolha, volte sempre\n");
+        //system("clear");
+        printMenu();
+//        scanf(" %c",&chrMenuOption);
+        intResult = 0;
+    }
+    return intResult;
+}
+
+void optionCase1(int intArrayUser2[ARRAY_DIMENSION])
+{
+    float fltSomaMedia = 0;
+    int intCounter = 0;
+
+    printf("Opçao 1 selecionada - Media do Vetor1\n\n");
+
+    for (intCounter = 0; intCounter < 10; intCounter++)
+    {
+        fltSomaMedia += intArrayUser2[intCounter];
+    }
+    fltSomaMedia /= 2;
+    printf("O valor da média da soma dos valores do vetor1 é %g", fltSomaMedia);
+}
+
+void optionCase2(int intArrayUser2[ARRAY_DIMENSION], int intArraySwitch[ARRAY_DIMENSION])
+{
+    int intLinhas = 0, intColunas = ARRAY_DIMENSION;
+    printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n");
+
+    for (intLinhas, intColunas; intLinhas < ARRAY_DIMENSION; --intColunas, intLinhas++)
+    {
+        intArraySwitch[intLinhas] = intArrayUser2[intColunas - 1];
+        printf("%d; ", intArraySwitch[intLinhas]);
+    }
+}
+
+void optionCase3(int intArrayUser2[ARRAY_DIMENSION], int intArraySwitch[ARRAY_DIMENSION])
+{
+    int intLinhas = 0, intColunas = ARRAY_DIMENSION;
+    printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n");
+
+    for (intLinhas, intColunas; intLinhas < ARRAY_DIMENSION; --intColunas, intLinhas++)
+    {
+        intArraySwitch[intLinhas] = intArrayUser2[intColunas - 1];
+        printf("%d; ", intArraySwitch[intLinhas]);
+    }
+}
+
 void main(){
-    int intArrayUser[10],intArray2[10],intCounter,intExit,intCounter2;
-    float fltArray3[10], fltSomaMedia;
+    int intArrayUser[ARRAY_DIMENSION],intArray2[ARRAY_DIMENSION],intCounter,intExit,intCounter2, intOptionResult;
+    float fltArray3[ARRAY_DIMENSION];
     char chrMenuOption, chrOptionConfirm;
     intExit = 1;
 
@@ -72,125 +138,74 @@ void main(){
                 intExit = 0;
                 break;
             case '1':
-                printf("Opçao 1 selecionada - Media do Vetor1\n\n");
-                fltSomaMedia = 0;
+                optionCase1(intArrayUser);
 
-                for (intCounter = 0; intCounter < 10; intCounter++)
-                {
-                    fltSomaMedia += intArrayUser[intCounter];
-                }
-                fltSomaMedia /= 2;
-                printf("O valor da média da soma dos valores do vetor1 é %g\n", fltSomaMedia);
+                intOptionResult = checkExit(intArray2,fltArray3);
 
-                printf("Deseja continuar na Opçao 1? (s ou n): ");
-                scanf(" %c",&chrOptionConfirm);
-                chrOptionConfirm = tolower(chrOptionConfirm);
-                if(chrOptionConfirm == 's')
+                if(intOptionResult != 1)
                 {
-                    printf("Opçao 1 selecionada - Media do Vetor1\n");
-                    resetArrays(intCounter,intArray2,fltArray3);
-                    continue;
-                }else if (chrOptionConfirm == 'n')
-                {
-                    printf("Obrigado pela sua escolha, volte sempre\n");
-                    printMenu();
                     scanf(" %c",&chrMenuOption);
                     break;
+                }else
+                {
+                    continue;
                 }
+
             case '2':
-                printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n");
+                optionCase2(intArrayUser, intArray2);
 
-                for (intCounter2 = 0, intCounter = 10; intCounter2 < 10; --intCounter, intCounter2++)
-                {
-                    intArray2[intCounter2] = intArrayUser[intCounter - 1];
-                    printf("%d; ", intArray2[intCounter2]);
-                }
+                intOptionResult = checkExit(intArray2,fltArray3);
 
-                printf("\nDeseja continuar na Opçao 2? (s ou n): ");
-                scanf(" %c",&chrOptionConfirm);
-                chrOptionConfirm = tolower(chrOptionConfirm);
-                if(chrOptionConfirm == 's')
+                if(intOptionResult != 1)
                 {
-                    printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n");
-                    resetArrays(intCounter,intArray2,fltArray3);
-                    continue;
-                }else if (chrOptionConfirm == 'n')
-                {
-                    printf("Obrigado pela sua escolha, volte sempre\n");
-                    printMenu();
                     scanf(" %c",&chrMenuOption);
                     break;
+                }else
+                {
+                    continue;
                 }
+
             case '3':
                 printf("Opçao 3 selecionada - Imprimir o Vetor1, mas primeiro impreme os numeros impares e so depois os pare");
 
-                intCounter2 = 0;
-                for(intCounter = 0; intCounter < 10; intCounter++)
-                {
-                    if(intArrayUser[intCounter] % 2 != 0)
-                    {
-                        intArray2[intCounter2] = intArrayUser[intCounter];
-                        intCounter2++;
-                    }else
-                    {
-                        intArray2[intCounter2] = intArrayUser[intCounter];
-                        intCounter2++;
-                    }
-                    printf("%d; ",intArray2[intCounter]);
-                }
 
-                printf("Deseja continuar na Opçao 3? (s ou n): ");
-                scanf(" %c",&chrOptionConfirm);
-                chrOptionConfirm = tolower(chrOptionConfirm);
-                if(chrOptionConfirm == 's')
+
+                intOptionResult = checkExit(intArray2,fltArray3);
+
+                if(intOptionResult != 1)
                 {
-                    printf("Opçao 3 selecionada - Imprimir o Vetor1, mas primeiro impreme os numeros impares e so depois os pare");
-                    resetArrays(intCounter,intArray2,fltArray3);
-                    break;
-                }else if (chrOptionConfirm == 'n')
-                {
-                    printf("Obrigado pela sua escolha, volte sempre");
-                    printMenu();
                     scanf(" %c",&chrMenuOption);
                     break;
+                }else
+                {
+                    continue;
                 }
             case '4':
                 printf("Opçao 4 selecionada - Media da diferença");
 
 
-                printf("Deseja continuar na Opçao 4? (s ou n): ");
-                scanf(" %c",&chrOptionConfirm);
-                chrOptionConfirm = tolower(chrOptionConfirm);
-                if(chrOptionConfirm == 's')
+                intOptionResult = checkExit(intArray2,fltArray3);
+
+                if(intOptionResult != 1)
                 {
-                    printf("Opçao 4 selecionada - Media da diferença");
-                    resetArrays(intCounter,intArray2,fltArray3);
-                    break;
-                }else if (chrOptionConfirm == 'n')
-                {
-                    printf("Obrigado pela sua escolha, volte sempre");
-                    printMenu();
                     scanf(" %c",&chrMenuOption);
                     break;
+                }else
+                {
+                    continue;
                 }
             case '5':
                 printf("Opçao 5 selecionada - ");
 
+                intOptionResult = checkExit(intArray2,fltArray3);
 
-                printf("Deseja continuar para a Opçao 5? (s ou n): ");
-                scanf(" %c",&chrOptionConfirm);
-                chrOptionConfirm = tolower(chrOptionConfirm);
-                if(chrOptionConfirm == 's')
+                if(intOptionResult != 1)
                 {
-                    printf("Opçao 5 selecionada - ");
-                    resetArrays(intCounter,intArray2,fltArray3);
-                    break;
-                }else if (chrOptionConfirm == 'n')
-                {
-                    printf("Obrigado pela sua escolha, volte sempre");
-                    printMenu();
                     scanf(" %c",&chrMenuOption);
                     break;
+                }else
+                {
+                    continue;
                 }
             default:
                 printf("Opçao invalida!\n");
