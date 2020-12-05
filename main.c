@@ -1,6 +1,6 @@
 /*
-Ismat - Engenheiria Informática 1º Ano
-Fundamentos de Programação - Prof. Fracisco Pereira
+Ismat - Engenheria Informática 1º Ano
+Fundamentos de Programação - Prof. Francisco Pereira
 Leandro Fonseca
 04/12/2020 - 13:27
 Resumo: Programa com menus e opções com arrays
