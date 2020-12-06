@@ -20,8 +20,10 @@ void resetArrays(int intArray2[ARRAY_DIMENSION], int intArray3[ARRAY_DIMENSION])
 {
     int intContador;
 
+    //Percorre array em toda a sua dimensao
     for (intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
     {
+        //Igual todos os elementos do array a 0
         intArray2[intContador] = 0;
         intArray3[intContador] = 0;
     }
@@ -45,21 +47,24 @@ void printMenu()
 int checkExit(int intArrayLocal[ARRAY_DIMENSION], int intArrayLocal2[ARRAY_DIMENSION])
 {
     int intResult = 1;
-    char chrOptionConfirm, chrMenuOption;
+    char chrOptionConfirm;
 
     printf("\nDeseja continuar na Opçao? (s ou n): ");
     scanf(" %c",&chrOptionConfirm);
     chrOptionConfirm = tolower(chrOptionConfirm);
+
+    //Verificar a opçao escolhida
     if(chrOptionConfirm == 's')
     {
+        //Caso seja 's', da reset arrayse continua
         printf("Continuar na opçao\n");
         resetArrays(intArrayLocal,intArrayLocal2);
     }else if (chrOptionConfirm == 'n')
     {
+        //Caso seja 'n' da print do menu e passa a flag a 0
         printf("Obrigado pela sua escolha, volte sempre\n");
         //system("clear");
         printMenu();
-//        scanf(" %c",&chrMenuOption);
         intResult = 0;
     }
     return intResult;
@@ -69,6 +74,7 @@ float getArrayMedia(int intArray[ARRAY_DIMENSION])
 {
     float fltValueReturn = 0;
     int intCounter = 0;
+    //Percorre o array em toda a sua dimensao
     for (intCounter = 0; intCounter < 10; intCounter++)
     {
         //Somatorio dos elementos
@@ -80,7 +86,7 @@ float getArrayMedia(int intArray[ARRAY_DIMENSION])
 void get2ArrayMedia(int intArray1[ARRAY_DIMENSION], int intArray2[ARRAY_DIMENSION])
 {
     int intCounter = 0;
-//    printf("%g",(float)((5+7)/2));
+    //Percorre o array em toda sua dimensao
     for (intCounter = 0; intCounter < 10; intCounter++)
     {
         //Somatorio dos elementos
@@ -91,8 +97,7 @@ void get2ArrayMedia(int intArray1[ARRAY_DIMENSION], int intArray2[ARRAY_DIMENSIO
 float optionCase1(int intArrayUser2[ARRAY_DIMENSION])
 {
     float fltSomaMedia;
-    int intCounter = 0;
-
+    //Usar funçao para calcular média
     fltSomaMedia = getArrayMedia(intArrayUser2);
 
     return fltSomaMedia;
@@ -109,6 +114,7 @@ void *optionCase2(int intArrayUser2[ARRAY_DIMENSION])
         //Passar os elementos em ordem inversa
         intArraySwitch[intLinhas] = intArrayUser2[intColunas - 1];
     }
+    //Retornar pointer do array
     return intArraySwitch;
 }
 
@@ -145,6 +151,7 @@ int *optionCase3(int intArrayData[ARRAY_DIMENSION])
             intOrder++;
         }
     }
+    //Retornar pointer do array
     return intArrayMerged;
 }
 
@@ -154,11 +161,12 @@ int *optionCase4(int intArrayData[ARRAY_DIMENSION])
     int intContador = 0, intArrayTemp[ARRAY_DIMENSION] = {50,50,50,50,50,50,50,50,50,50};
 
     //Percorrer o array original em toda a sua dimensao
-    for (intContador; intContador < ARRAY_DIMENSION; intContador++)
+    for (intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
     {
         //Passar diferença ao quadrado para array final
         intArrayMerged[intContador]=(intArrayTemp[intContador] - intArrayData[intContador])*(intArrayTemp[intContador] - intArrayData[intContador]);
     }
+    //Retornar pointer do array
     return intArrayMerged;
 }
 
@@ -167,27 +175,31 @@ void optionCase5()
     int intArrayVetor2[ARRAY_DIMENSION] = {0}, intArrayVetor3[ARRAY_DIMENSION] = {0};
     srand(time(NULL));
 
+    //Percorrer os arrays nas suas dimensoes
     for(int i = 0; i < ARRAY_DIMENSION; i++){
+        //Atribuir valores random de 1 a 100 aos elementos do array
         intArrayVetor2[i] = rand() % 100 + 1;
         intArrayVetor3[i] = rand() % 100 + 1;
     }
-
+    //Usar funçao para calcular media de cada elemento do array
     get2ArrayMedia(intArrayVetor2, intArrayVetor3);
 }
 
 void main(){
-    int intArrayUser[ARRAY_DIMENSION],intArray2[ARRAY_DIMENSION],intCounter,intExit,intCounter2, intOptionResult;
+    int intArrayUser[ARRAY_DIMENSION],intArray2[ARRAY_DIMENSION],intCounter,intExit, intOptionResult;
     int intArray3[ARRAY_DIMENSION];
-    char chrMenuOption, chrOptionConfirm;
+    char chrMenuOption;
     intExit = 1;
 
     printf("Preencha os valores para um array (vetor1). Apenas valores inteiros compreendidos entre 1 e 100\n");
     while(intExit != 0)
     {
+        //Percorre o array em toda a sua dimensao
         for (intCounter = 0; intCounter < 10; intCounter++)
         {
             printf("Elemento do array de index %d: ",intCounter);
             scanf("%d",&intArrayUser[intCounter]);
+            //Verificar o valor dos elementos
             if((intArrayUser[intCounter] < 1) || (intArrayUser[intCounter] > 100))
             {
                 printf("Valor incorreto! \nValor nao compreendido entre 1 e 100!\n");
@@ -195,6 +207,7 @@ void main(){
                 break;
             }else if (intCounter == 9)
             {
+                //Mudar flag para sair do loop
                 intExit = 0;
             }
         }
@@ -213,10 +226,10 @@ void main(){
                 break;
             case '1':
                 printf("Opçao 1 selecionada - Media do Vetor1\n\n");
-                float tt;
-                tt = optionCase1(intArrayUser);
+                float fltMediaArrayCase1;
+                fltMediaArrayCase1 = optionCase1(intArrayUser);
 
-                printf("O valor da média da soma dos valores do vetor1 é %g", tt);
+                printf("O valor da média da soma dos valores do vetor1 é %g", fltMediaArrayCase1);
                 intOptionResult = checkExit(intArray2,intArray3);
 
                 if(intOptionResult != 1)
@@ -230,11 +243,11 @@ void main(){
 
             case '2':
                 printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n");
-                int *n;
-                n = optionCase2(intArrayUser);
+                int *pArrayInverso;
+                pArrayInverso = optionCase2(intArrayUser);
 
                 for (int i = 0; i < 10; i++) {
-                    printf("%d; ", n[i]);
+                    printf("%d; ", pArrayInverso[i]);
                 }
 
                 intOptionResult = checkExit(intArray2,intArray3);
@@ -250,11 +263,11 @@ void main(){
 
             case '3':
                 printf("Opçao 3 selecionada - Imprimir o Vetor1, mas primeiro impreme os numeros impares e so depois os pares \n");
-                int *n1;
-                n1 = optionCase3(intArrayUser);
+                int *pArrayOddEven;
+                pArrayOddEven = optionCase3(intArrayUser);
 
                 for (int i = 0; i < 10; i++) {
-                    printf("%d; ", n1[i]);
+                    printf("%d; ", pArrayOddEven[i]);
                 }
                 intOptionResult = checkExit(intArray2,intArray3);
 
@@ -268,16 +281,16 @@ void main(){
                 }
             case '4':
                 printf("Opçao 4 selecionada - Media da diferença\n");
-                int *n2;
+                int *pArrayMediaDiferenca;
 
-                n2 = optionCase4(intArrayUser);
+                pArrayMediaDiferenca = optionCase4(intArrayUser);
 
                 for (int i = 0; i < 10; i++) {
-                    printf("%d; ", n2[i]);
+                    printf("%d; ", pArrayMediaDiferenca[i]);
                 }
 
                 float fltSomaMedia = 0;
-                fltSomaMedia = getArrayMedia(n2);
+                fltSomaMedia = getArrayMedia(pArrayMediaDiferenca);
                 printf("\nMedia de elementos do vetor3: %g", fltSomaMedia);
 
                 intOptionResult = checkExit(intArray2,intArray3);
