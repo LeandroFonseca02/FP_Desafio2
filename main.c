@@ -2,7 +2,7 @@
 Ismat - Engenheria Informática 1º Ano
 Fundamentos de Programação - Prof. Francisco Pereira
 Leandro Fonseca
-04/12/2020 - 13:27
+07/12/2020 - 17:47
 Resumo: Programa com menus e opções com arrays
 Inputs:
 Outputs:
@@ -13,12 +13,58 @@ Outputs:
 #include <ctype.h>
 #include <time.h>
 
-
+//Define do tamanho dos arrays
 #define ARRAY_DIMENSION 10
 
-void resetArrays(int intArray2[ARRAY_DIMENSION], int intArray3[ARRAY_DIMENSION])
+//Define dos Textos do printMenu()
+#define TEXT_MENU_LINE1 "╔══════════════════════════════════════════════════╗\n"
+#define TEXT_MENU_LINE2 "║                       Menu                       ║\n"
+#define TEXT_MENU_LINE3 "╚══════════════════════════════════════════════════╝\n"
+#define TEXT_MENU_LINE4 "1. Escreve a media da soma do elementos do vetor1\n"
+#define TEXT_MENU_LINE5 "2. Escreve os elementos do vetor1 pela ordem inversa\n"
+#define TEXT_MENU_LINE6 "3. Escreve os elementos do vetor1, primeiro os numeros impares e depois os pares\n"
+#define TEXT_MENU_LINE7 "4. Preenche o vetor2 com o número 50 , coloca  no  vetor3  a  diferença  ao  quadrado  dos seus  elementos com  os  elementos  do  vetor  1. Em  seguida imprimeo vetor3.Some os valores encontrados, calcule a sua média e imprima\n"
+#define TEXT_MENU_LINE8 "5. Preenche os vetor2 e vetor3 com um valor qualquer à  sua  escolha  e  calcule  a  média  da  soma  dos  elementos  de cada índice e vá imprimindo por ordem de cálculo\n"
+#define TEXT_MENU_LINE9 "0. Sair do programa\n\n"
+#define TEXT_MENU_LINE10 "Escolha a opçao do menu: "
+
+//Define dos Textos para proceguir options
+#define TEXT_CONTINUE_MENU_OPTION "\nDeseja continuar na Opçao? (s ou n): "
+#define TEXT_CONTINUE_OPTION "Continuar na opçao\n"
+#define TEXT_EXIT_OPTION "Obrigado pela sua escolha, volte sempre\n"
+#define TEXT_INVALID_OPTION "Opcao invalida!\n"
+
+//Define dos Textos da entrada de valores do array
+#define TEXT_FIRSTARRAY_INPUT "Preencha os valores para um array (vetor1). Apenas valores inteiros compreendidos entre 1 e 100\n"
+#define TEXT_ARRAY_INDEX_VALUE "Elemento do array de index %d: "
+#define TEXT_INVALID_VALUE "Valor incorreto! \nValor nao compreendido entre 1 e 100!\n"
+
+//Define dos Textos das Opçoes Selecionadas e Resultados
+#define TEXT_OPTION0 "Opçao 0 selecionada - Sair\n"
+#define TEXT_OPTION1 "Opçao 1 selecionada - Media do Vetor1\n\n"
+#define TEXT_OPTION1_RESULT "O valor da média da soma dos valores do vetor1 é %g"
+#define TEXT_OPTION2 "Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n"
+#define TEXT_OPTION3 "Opçao 3 selecionada - Imprimir o Vetor1, mas primeiro impreme os numeros impares e so depois os pares \n"
+#define TEXT_PRINT_INT_RESULT "%d; "
+#define TEXT_OPTION4 "Opçao 4 selecionada - Media da diferença\n"
+#define TEXT_OPTION4_RESULT "\nMedia de elementos do vetor3: %g"
+#define TEXT_OPTION5 "Opçao 5 selecionada - Média de elementos de valor randomico\n"
+
+int checkArrayValueZero(int intArray[ARRAY_DIMENSION])
 {
-    int intContador;
+    int intContador, intFlag = 0;
+    for(intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
+    {
+        if(intArray[intContador] != 0){
+            intFlag = 1;
+        }
+    }
+    return intFlag;
+}
+
+int resetArrays(int intArray2[ARRAY_DIMENSION], int intArray3[ARRAY_DIMENSION])
+{
+    int intContador, intResultOK = 0, intResultCheck, intResultCheck2;
 
     //Percorre array em toda a sua dimensao
     for (intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
@@ -27,21 +73,39 @@ void resetArrays(int intArray2[ARRAY_DIMENSION], int intArray3[ARRAY_DIMENSION])
         intArray2[intContador] = 0;
         intArray3[intContador] = 0;
     }
+
+    intResultCheck = checkArrayValueZero(intArray2);
+
+    //Verificar se o array2  foi resetado
+    if(intResultCheck != 1){
+        intResultOK = 0;
+    }else{
+        //Primeiro array OK; Verificar segundo
+        intResultCheck = checkArrayValueZero(intArray3);
+        if(intResultCheck != 1){
+            intResultOK = 0;
+        }else{
+            //Ambos OK; Resultado OK
+            intResultOK = 1;
+        }
+    }
+
+    return intResultOK;
 }
 
 void printMenu()
 {
     //system("cls");
-    printf("╔══════════════════════════════════════════════════╗\n");
-    printf("║                       Menu                       ║\n");
-    printf("╚══════════════════════════════════════════════════╝\n");
-    printf("1. Escreve a media da soma do elementos do vetor1\n");
-    printf("2. Escreve os elementos do vetor1 pela ordem inversa\n");
-    printf("3. Escreve os elementos do vetor1, primeiro os numeros impares e depois os pares\n");
-    printf("4. Preenche o vetor2 com o número 50 , coloca  no  vetor3  a  diferença  ao  quadrado  dos seus  elementos com  os  elementos  do  vetor  1. Em  seguida imprimeo vetor3.Some os valores encontrados, calcule a sua média e imprima\n");
-    printf("5. Preenche os vetor2 e vetor3 com um valor qualquer à  sua  escolha  e  calcule  a  média  da  soma  dos  elementos  de cada índice e vá imprimindo por ordem de cálculo\n");
-    printf("0. Sair do programa\n\n");
-    printf("Escolha a opçao do menu: ");
+    printf(TEXT_MENU_LINE1);
+    printf(TEXT_MENU_LINE2);
+    printf(TEXT_MENU_LINE3);
+    printf(TEXT_MENU_LINE4);
+    printf(TEXT_MENU_LINE5);
+    printf(TEXT_MENU_LINE6);
+    printf(TEXT_MENU_LINE7);
+    printf(TEXT_MENU_LINE8);
+    printf(TEXT_MENU_LINE9);
+    printf(TEXT_MENU_LINE10);
 }
 
 int checkExit(int intArrayLocal[ARRAY_DIMENSION], int intArrayLocal2[ARRAY_DIMENSION])
@@ -49,24 +113,35 @@ int checkExit(int intArrayLocal[ARRAY_DIMENSION], int intArrayLocal2[ARRAY_DIMEN
     int intResult = 1;
     char chrOptionConfirm;
 
-    printf("\nDeseja continuar na Opçao? (s ou n): ");
+    printf(TEXT_CONTINUE_MENU_OPTION);
     scanf(" %c",&chrOptionConfirm);
     chrOptionConfirm = tolower(chrOptionConfirm);
 
     //Verificar a opçao escolhida
-    if(chrOptionConfirm == 's')
+
+    if((chrOptionConfirm == 110) || (chrOptionConfirm == 115))
     {
-        //Caso seja 's', da reset arrayse continua
-        printf("Continuar na opçao\n");
-        resetArrays(intArrayLocal,intArrayLocal2);
-    }else if (chrOptionConfirm == 'n')
+        if(chrOptionConfirm == 's')
+        {
+            //Caso seja 's', da reset arrays e continua
+            printf(TEXT_CONTINUE_OPTION);
+            resetArrays(intArrayLocal,intArrayLocal2);
+        }else if (chrOptionConfirm == 'n')
+        {
+            //Caso seja 'n' da print do menu e passa a flag a 0
+            printf(TEXT_EXIT_OPTION);
+            //system("clear");
+            printMenu();
+            intResult = 0;
+        }
+    }else
     {
-        //Caso seja 'n' da print do menu e passa a flag a 0
-        printf("Obrigado pela sua escolha, volte sempre\n");
-        //system("clear");
+        //Caso nao seja s/n Erro e segue para menu
+        printf(TEXT_INVALID_OPTION);
         printMenu();
         intResult = 0;
     }
+
     return intResult;
 }
 
@@ -186,23 +261,24 @@ void optionCase5()
 }
 
 void main(){
+    int *arrayPointerAdress;
     int intArrayUser[ARRAY_DIMENSION],intArray2[ARRAY_DIMENSION],intCounter,intExit, intOptionResult;
     int intArray3[ARRAY_DIMENSION];
     char chrMenuOption;
     intExit = 1;
 
-    printf("Preencha os valores para um array (vetor1). Apenas valores inteiros compreendidos entre 1 e 100\n");
+    printf(TEXT_FIRSTARRAY_INPUT);
     while(intExit != 0)
     {
         //Percorre o array em toda a sua dimensao
         for (intCounter = 0; intCounter < 10; intCounter++)
         {
-            printf("Elemento do array de index %d: ",intCounter);
+            printf(TEXT_ARRAY_INDEX_VALUE,intCounter);
             scanf("%d",&intArrayUser[intCounter]);
             //Verificar o valor dos elementos
             if((intArrayUser[intCounter] < 1) || (intArrayUser[intCounter] > 100))
             {
-                printf("Valor incorreto! \nValor nao compreendido entre 1 e 100!\n");
+                printf(TEXT_INVALID_VALUE);
                 //system("cls");
                 break;
             }else if (intCounter == 9)
@@ -220,16 +296,16 @@ void main(){
     {
         switch (chrMenuOption) {
             case '0':
-                printf("Opçao 0 selecionada - Sair\n");
-                printf("Obrigado pela sua escolha, volte sempre");
+                printf(TEXT_OPTION0);
+                printf(TEXT_EXIT_OPTION);
                 intExit = 0;
                 break;
             case '1':
-                printf("Opçao 1 selecionada - Media do Vetor1\n\n");
+                printf(TEXT_OPTION1);
                 float fltMediaArrayCase1;
                 fltMediaArrayCase1 = optionCase1(intArrayUser);
 
-                printf("O valor da média da soma dos valores do vetor1 é %g", fltMediaArrayCase1);
+                printf(TEXT_OPTION1_RESULT, fltMediaArrayCase1);
                 intOptionResult = checkExit(intArray2,intArray3);
 
                 if(intOptionResult != 1)
@@ -242,12 +318,11 @@ void main(){
                 }
 
             case '2':
-                printf("Opçao 2 selecionada - Imprimir Vetor1 pela ordem inversa\n\n");
-                int *pArrayInverso;
-                pArrayInverso = optionCase2(intArrayUser);
+                printf(TEXT_OPTION2);
+                arrayPointerAdress = optionCase2(intArrayUser);
 
-                for (int i = 0; i < 10; i++) {
-                    printf("%d; ", pArrayInverso[i]);
+                for (intCounter = 0; intCounter < 10; intCounter++) {
+                    printf(TEXT_PRINT_INT_RESULT, arrayPointerAdress[intCounter]);
                 }
 
                 intOptionResult = checkExit(intArray2,intArray3);
@@ -262,12 +337,11 @@ void main(){
                 }
 
             case '3':
-                printf("Opçao 3 selecionada - Imprimir o Vetor1, mas primeiro impreme os numeros impares e so depois os pares \n");
-                int *pArrayOddEven;
-                pArrayOddEven = optionCase3(intArrayUser);
+                printf(TEXT_OPTION3);
+                arrayPointerAdress = optionCase3(intArrayUser);
 
-                for (int i = 0; i < 10; i++) {
-                    printf("%d; ", pArrayOddEven[i]);
+                for (intCounter = 0; intCounter < 10; intCounter++) {
+                    printf(TEXT_PRINT_INT_RESULT, arrayPointerAdress[intCounter]);
                 }
                 intOptionResult = checkExit(intArray2,intArray3);
 
@@ -280,18 +354,17 @@ void main(){
                     continue;
                 }
             case '4':
-                printf("Opçao 4 selecionada - Media da diferença\n");
-                int *pArrayMediaDiferenca;
+                printf(TEXT_OPTION4);
 
-                pArrayMediaDiferenca = optionCase4(intArrayUser);
+                arrayPointerAdress = optionCase4(intArrayUser);
 
-                for (int i = 0; i < 10; i++) {
-                    printf("%d; ", pArrayMediaDiferenca[i]);
+                for (intCounter = 0; intCounter < 10; intCounter++) {
+                    printf(TEXT_PRINT_INT_RESULT, arrayPointerAdress[intCounter]);
                 }
 
                 float fltSomaMedia = 0;
-                fltSomaMedia = getArrayMedia(pArrayMediaDiferenca);
-                printf("\nMedia de elementos do vetor3: %g", fltSomaMedia);
+                fltSomaMedia = getArrayMedia(arrayPointerAdress);
+                printf(TEXT_OPTION4_RESULT, fltSomaMedia);
 
                 intOptionResult = checkExit(intArray2,intArray3);
 
@@ -304,7 +377,7 @@ void main(){
                     continue;
                 }
             case '5':
-                printf("Opçao 5 selecionada - ");
+                printf(TEXT_OPTION5);
                 optionCase5();
 
                 intOptionResult = checkExit(intArray2,intArray3);
@@ -318,7 +391,7 @@ void main(){
                     continue;
                 }
             default:
-                printf("Opçao invalida!\n");
+                printf(TEXT_INVALID_OPTION);
                 printMenu();
                 scanf(" %c",&chrMenuOption);
                 break;
