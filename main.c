@@ -65,7 +65,7 @@ int checkArrayValueZero(int intArray[ARRAY_DIMENSION])
 
 int resetArrays(int intArray2[ARRAY_DIMENSION], int intArray3[ARRAY_DIMENSION])
 {
-    int intContador, intResultOK = 0, intResultCheck, intResultCheck2;
+    int intContador, intResultOK, intResultCheck;
 
     //Percorre array em toda a sua dimensao
     for (intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
@@ -131,7 +131,6 @@ int checkExit(int intArrayLocal[ARRAY_DIMENSION], int intArrayLocal2[ARRAY_DIMEN
         {
             //Caso seja 'n' da print do menu e passa a flag a 0
             printf(TEXT_EXIT_OPTION);
-            //system("clear");
             printMenu();
             intResult = 0;
         }
@@ -149,7 +148,7 @@ int checkExit(int intArrayLocal[ARRAY_DIMENSION], int intArrayLocal2[ARRAY_DIMEN
 float getArrayMedia(int intArray[ARRAY_DIMENSION])
 {
     float fltValueReturn = 0;
-    int intCounter = 0;
+    int intCounter;
     //Percorre o array em toda a sua dimensao
     for (intCounter = 0; intCounter < 10; intCounter++)
     {
@@ -161,7 +160,7 @@ float getArrayMedia(int intArray[ARRAY_DIMENSION])
 
 void get2ArrayMedia(int intArray1[ARRAY_DIMENSION], int intArray2[ARRAY_DIMENSION])
 {
-    int intCounter = 0;
+    int intCounter;
     //Percorre o array em toda sua dimensao
     for (intCounter = 0; intCounter < 10; intCounter++)
     {
@@ -234,7 +233,7 @@ int *optionCase3(int intArrayData[ARRAY_DIMENSION])
 int *optionCase4(int intArrayData[ARRAY_DIMENSION])
 {
     static int intArrayMerged[ARRAY_DIMENSION] = {0};
-    int intContador = 0, intArrayTemp[ARRAY_DIMENSION] = {50,50,50,50,50,50,50,50,50,50};
+    int intContador, intArrayTemp[ARRAY_DIMENSION] = {50,50,50,50,50,50,50,50,50,50};
 
     //Percorrer o array original em toda a sua dimensao
     for (intContador = 0; intContador < ARRAY_DIMENSION; intContador++)
@@ -364,7 +363,7 @@ void main(){
                     printf(TEXT_PRINT_INT_RESULT, arrayPointerAdress[intCounter]);
                 }
 
-                float fltSomaMedia = 0;
+                float fltSomaMedia;
                 fltSomaMedia = getArrayMedia(arrayPointerAdress);
                 printf(TEXT_OPTION4_RESULT, fltSomaMedia);
 
