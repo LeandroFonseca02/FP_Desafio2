@@ -23,7 +23,7 @@ Outputs:
 #define TEXT_MENU_LINE4 "1. Escreve a media da soma do elementos do vetor1\n"
 #define TEXT_MENU_LINE5 "2. Escreve os elementos do vetor1 pela ordem inversa\n"
 #define TEXT_MENU_LINE6 "3. Escreve os elementos do vetor1, primeiro os numeros impares e depois os pares\n"
-#define TEXT_MENU_LINE7 "4. Preenche o vetor2 com o numero 50 , coloca  no  vetor3  a  diferenca  ao  quadrado  dos seus  elementos com  os  elementos  do  vetor  1. Em  seguida imprime-o vetor3.Some os valores encontrados, calcule a sua média e imprima\n"
+#define TEXT_MENU_LINE7 "4. Preenche o vetor2 com o numero 50 , coloca  no  vetor3  a  diferenca  ao  quadrado  dos seus  elementos com  os  elementos  do  vetor  1. Em  seguida imprime-o vetor3.Some os valores encontrados, calcule a sua media e imprima\n"
 #define TEXT_MENU_LINE8 "5. Preenche os vetor2 e vetor3 com um random  e  calcule  a  media  da  soma  dos  elementos  de cada indice e va imprimindo por ordem de calculo\n"
 #define TEXT_MENU_LINE9 "0. Sair do programa\n\n"
 #define TEXT_MENU_LINE10 "Escolha a opcao do menu: "
